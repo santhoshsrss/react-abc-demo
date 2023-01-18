@@ -1,0 +1,17 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  background-color: rgb(247, 180, 117);
+}
+.App{
+  text-align: center;
+}
+.user-name{
+font-family: 'Courier New', Courier, monospace;
+}
+.user-img{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+}

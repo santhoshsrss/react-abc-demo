@@ -5,6 +5,12 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Badge from '@mui/material/Badge';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 export function MovieList() {
   const [movieList, setmovieList] = useState([
     {
@@ -148,25 +154,33 @@ function Movie({ movie }) {
     color: movie.rating >= 8.5 ? "green" :"crimson"
   }
   const[show, setshow]= useState(true)
-  const summarystyle = {
-    display: show ? 'block':'none'
-  }
+  // const summarystyle = {
+  //   display: show ? 'block':'none'
+  // }
   return (
-    <div className="movie-container">
-      <img className="movie-poster" src={movie.poster} alt={movie.name} />
-      <div className="movie-specs">
-        <h2 className="movie-name">{movie.name}</h2>
-        <p style={styles} className="movie-rating">⭐ {movie.rating}</p>
-      </div>
-      <button onClick={() => setshow(!show)}>Toggle Summary</button>
-      {/* conditional styling - only update the styles */}
-      <p style={summarystyle} className="movie-summary">{movie.summary}</p>
-      
-      {/* conditional rendering - Remove from DOM */}
-      {/* { show ? <p className="movie-summary">{movie.summary}</p> : null } */}
+    <Card className="movie-container">
+          <img className="movie-poster" src={movie.poster} alt={movie.name} />
+      <CardContent>
+        <div className="movie-specs">
+            <h2 className="movie-name">{movie.name}
+                <IconButton onClick={() => setshow(!show)}
+                aria-label="Movie summary"
+                color = "primary"
+              >
+                { show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </IconButton>
+          </h2>
+              <p style={styles} className="movie-rating">⭐ {movie.rating}</p>
+        </div>
+        {/* conditional styling - only update the styles */}
+        {/* <p style={summarystyle} className="movie-summary">{movie.summary}</p> */}
+        
+        {/* conditional rendering - Remove from DOM */}
+        { show ? <p className="movie-summary">{movie.summary}</p> : null }
+      </CardContent>
 
       <Dlike />
-    </div>
+    </Card>
   );
 }
 
@@ -175,25 +189,26 @@ function Dlike(){
   const[dislike, setdislike] = useState(0);
   return(
     <div className="likdis">
-      <IconButton  
-        onClick={() => setlike(like+1)} 
-        aria-label="delete" 
-        color="primary"
-      >
-        <Badge badgeContent={like} color="primary">
-          👍
-        </Badge>
-      </IconButton>
-      <IconButton 
-          onClick={() => setdislike(dislike+1) }
-          aria-label="delete" 
-          color="error" 
-      >
-        
-        <Badge badgeContent={dislike} color="primary">
-          👎
-        </Badge>
-      </IconButton>
+      <CardActions>
+        <IconButton
+          onClick={() => setlike(like+1)}
+          aria-label="delete"
+          color="primary"
+        >
+          <Badge badgeContent={like} color="primary">
+            👍
+          </Badge>
+        </IconButton>
+        <IconButton
+            onClick={() => setdislike(dislike+1) }
+            aria-label="delete"
+            color="error"
+        >
+          <Badge badgeContent={dislike} color="primary">
+            👎
+          </Badge>
+        </IconButton>
+      </CardActions>
 
     </div>
   )

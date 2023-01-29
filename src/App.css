@@ -75,6 +75,7 @@ font-family: 'Courier New', Courier, monospace;
 }
 .movie-container{
   width: 340px;
+  height: min-content;
 }
 .movie-poster{
   width: 100%;

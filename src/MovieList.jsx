@@ -1,6 +1,12 @@
 import { useState } from "react";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Badge from '@mui/material/Badge';
 export function MovieList() {
-  const movieList = [
+  const [movieList, setmovieList] = useState([
     {
       "id": "99",
       "name": "Vikram",
@@ -89,16 +95,54 @@ export function MovieList() {
       "trailer": "https://youtu.be/NgsQ8mVkN8w",
       "id": "109"
     }
-  ];
-
+  ]);
+  const[name, setname] = useState("")
+  const[poster, setposter] = useState("")
+  const[rating, setrating] = useState("")
+  const[summary, setsummary] = useState("")
   return (
-    <div className="movie-list">
-      {movieList.map((mv) => (
-        <Movie movie={mv} />
-      ))}
+    <div>
+      <div className="add-movie-form">
+        <TextField id="outlined-basic" label="Movie Name" variant="outlined" 
+        onChange={(event) => setname(event.target.value)} 
+        type="text" 
+        />
+        <TextField id="outlined-basic" label="Poster" variant="outlined" 
+        onChange={(event) => setposter(event.target.value)} 
+        type="text"
+        />
+        <TextField id="outlined-basic" label="Rating" variant="outlined" 
+        onChange={(event) => setrating(event.target.value)} 
+        type="text" 
+        />
+        <TextField id="outlined-basic" label="Summary" variant="outlined" 
+        onChange={(event) => setsummary(event.target.value)} 
+        type="text"
+        />        
+        <Button variant="contained"
+        onClick={() => {
+          const newmovie = {
+            name : name,
+            poster : poster, 
+            summary : summary, 
+            rating : rating,
+          };
+          setmovieList([... movieList, newmovie])
+        }}
+        >
+          Add Movie
+        </Button>
+        
+      </div>
+      <div className="movie-list">
+        {movieList.map((mv) => (
+          <Movie movie={mv} />
+        ))}
+      </div>
     </div>
   );
 }
+
 function Movie({ movie }) {
   const styles = {
     color: movie.rating >= 8.5 ? "green" :"crimson"
@@ -115,7 +159,12 @@ function Movie({ movie }) {
         <p style={styles} className="movie-rating">⭐ {movie.rating}</p>
       </div>
       <button onClick={() => setshow(!show)}>Toggle Summary</button>
+      {/* conditional styling - only update the styles */}
       <p style={summarystyle} className="movie-summary">{movie.summary}</p>
+      
+      {/* conditional rendering - Remove from DOM */}
+      {/* { show ? <p className="movie-summary">{movie.summary}</p> : null } */}
+
       <Dlike />
     </div>
   );
@@ -126,8 +175,26 @@ function Dlike(){
   const[dislike, setdislike] = useState(0);
   return(
     <div className="likdis">
-      <button onClick={() => setlike(like+1) }>👍{like}</button>
-      <button onClick={() => setdislike(dislike+1) }>👎{dislike}</button>
+      <IconButton  
+        onClick={() => setlike(like+1)} 
+        aria-label="delete" 
+        color="primary"
+      >
+        <Badge badgeContent={like} color="primary">
+          👍
+        </Badge>
+      </IconButton>
+      <IconButton 
+          onClick={() => setdislike(dislike+1) }
+          aria-label="delete" 
+          color="error" 
+      >
+        
+        <Badge badgeContent={dislike} color="primary">
+          👎
+        </Badge>
+      </IconButton>
+
     </div>
   )
 }

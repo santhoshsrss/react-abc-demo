@@ -97,4 +97,10 @@ font-family: 'Courier New', Courier, monospace;
   margin-top: 0;
 }
 
-
+.add-movie-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin: 10px auto;
+}

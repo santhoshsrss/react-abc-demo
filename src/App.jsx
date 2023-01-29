@@ -9,8 +9,8 @@ function App() {
 return (
     <div className="App">
       {/* <Counter /> */}
-      {/* <TicTacToe /> */}
-      <MovieList />
+      <TicTacToe />
+      {/* <MovieList /> */}
       {/* <AddColor /> */}
       {/* <Photos /> */}
     </div>

@@ -125,7 +125,7 @@ return (
         <Route path="/Movie" element={<MovieList movieList = {movieList} setmovieList = {setmovieList} />} />
         <Route path="/Movie/:san" element={<MovieDetails movieList = {movieList} />} />
         <Route path="/AddColor" element={<AddColor />} />
-        <Route path="/Photos" element={<Photos />} />
+        {/* <Route path="/Photos" element={<Photos />} /> */}
         <Route path="/*" element={<Notapage />} />
         
       </Routes>

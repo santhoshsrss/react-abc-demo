@@ -118,10 +118,6 @@ return (
         </ul>
       </nav>
       {/* <Counter /> */}
-      {/* <TicTacToe /> */}
-      {/* <MovieList /> */}
-      {/* <AddColor /> */}
-      {/* <Photos /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/TicTacToe" element={<TicTacToe />} />

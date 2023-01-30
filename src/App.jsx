@@ -3,7 +3,7 @@ import "./App.css";
 import { Counter } from "./Counter";
 import { MovieList } from "./MovieList";
 import { TicTacToe } from "./TicTacToe";
-import { Photos } from "./photos";
+import { Photos } from "./Photos";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { MovieDetails } from "./MovieDetails";

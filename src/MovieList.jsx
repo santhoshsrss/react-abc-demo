@@ -1,6 +1,4 @@
-import { useState } from "react";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { useEffect, useState } from "react";
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,53 +13,17 @@ import InfoIcon from '@mui/icons-material/Info';
 import { Navigate, useNavigate } from "react-router-dom";
 export function MovieList({movieList, setmovieList}) {
  
-  const[name, setname] = useState("")
-  const[poster, setposter] = useState("")
-  const[rating, setrating] = useState("")
-  const[summary, setsummary] = useState("")
   return (
-    <div>
-      <div className="add-movie-form">
-        <TextField id="outlined-basic" label="Movie Name" variant="outlined" 
-        onChange={(event) => setname(event.target.value)} 
-        type="text" 
-        />
-        <TextField id="outlined-basic" label="Poster" variant="outlined" 
-        onChange={(event) => setposter(event.target.value)} 
-        type="text"
-        />
-        <TextField id="outlined-basic" label="Rating" variant="outlined" 
-        onChange={(event) => setrating(event.target.value)} 
-        type="text" 
-        />
-        <TextField id="outlined-basic" label="Summary" variant="outlined" 
-        onChange={(event) => setsummary(event.target.value)} 
-        type="text"
-        />        
-        <Button variant="contained"
-        onClick={() => {
-          const newmovie = {
-            name : name,
-            poster : poster, 
-            summary : summary, 
-            rating : rating,
-          };
-          setmovieList([... movieList, newmovie])
-        }}
-        >
-          Add Movie
-        </Button>
-        
-      </div>
+
       <div className="movie-list">
-        {movieList.map((mv, index) => (
-          <Movie key ={index}  movie={mv} id = {index} />
-        ))}
+        
+          {movieList.map((mv, index) => (
+            <Movie key ={index}  movie={mv} id = {index} />
+          ))}
+      
       </div>
-    </div>
   );
 }
-
 function Movie({ movie, id }) {
   const styles = {
     color: movie.rating >= 8.5 ? "green" :"crimson"
@@ -110,6 +72,9 @@ function Movie({ movie, id }) {
 function Dlike(){
   const[like, setlike] = useState(0);
   const[dislike, setdislike] = useState(0);
+  useEffect(() => {
+    console.log("Like value is updated : ",dislike )
+  },[dislike, like])
   return(
     <div className="likdis">
       <CardActions>
@@ -136,3 +101,5 @@ function Dlike(){
     </div>
   )
 }
+
+

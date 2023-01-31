@@ -70,4 +70,4 @@
     
   ]
 ------------Notes----------------
-conditional rendering:
+sx is like internal and external style which is only used in material.

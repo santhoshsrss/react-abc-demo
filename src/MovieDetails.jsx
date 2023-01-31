@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export function MovieDetails({ movieList }) {
   const { san } = useParams();
@@ -9,10 +11,10 @@ export function MovieDetails({ movieList }) {
   };
   const navigate = useNavigate(-1);
   return (
-    <div>
+    <div className="movie-list-with-trialer">
       <iframe
         width="100%"
-        height="650px"
+        height="500px"
         src={movie.trailer}
         title="Marvel Studios’ Ant-Man and The Wasp: Quantumania | New Trailer"
         frameborder="0"
@@ -26,11 +28,14 @@ export function MovieDetails({ movieList }) {
         {/* conditional styling - only update the styles */}
         <p className="movie-summary">{movie.summary}</p>
       </div>
-      <Button
-        onClick={() => navigate(-1)}
-        variant="contained">
-        BACK
-      </Button>
+      <div className="back-button">
+        <Button 
+          onClick={() => navigate(-1)}
+          variant="contained"
+          startIcon={<ArrowBackIcon />}>
+          BACK
+        </Button>
+      </div>
     </div>
   );
 }

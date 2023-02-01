@@ -11,14 +11,20 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import InfoIcon from '@mui/icons-material/Info';
 import { Navigate, useNavigate } from "react-router-dom";
-export function MovieList({movieList, setmovieList}) {
- 
+export function MovieList() {
+  const [movieList, setmovieList] = useState([]);
+  useEffect(() => {
+    fetch("https://63d75fc05c4274b136f30708.mockapi.io/movies")
+   .then((data) => data.json())
+   .then((movlis) => setmovieList(movlis)); 
+  }, [])
+
   return (
 
       <div className="movie-list">
         
           {movieList.map((mv, index) => (
-            <Movie key ={index}  movie={mv} id = {index} />
+            <Movie key ={mv.id}  movie={mv} id = {mv.id} />
           ))}
       
       </div>
@@ -30,9 +36,9 @@ function Movie({ movie, id }) {
   }
   const[show, setshow]= useState(true)
   const navigate = useNavigate()
-  // const summarystyle = {
-  //   display: show ? 'block':'none'
-  // }
+  const summarystyle = {
+    display: show ? 'block':'none'
+  }
   return (
     <Card className="movie-container">
           <img className="movie-poster" src={movie.poster} alt={movie.name} />
@@ -58,10 +64,10 @@ function Movie({ movie, id }) {
               <p style={styles} className="movie-rating">⭐ {movie.rating}</p>
         </div>
         {/* conditional styling - only update the styles */}
-        {/* <p style={summarystyle} className="movie-summary">{movie.summary}</p> */}
+        <p style={summarystyle} className="movie-summary">{movie.summary}</p>
         
         {/* conditional rendering - Remove from DOM */}
-        { show ? <p className="movie-summary">{movie.summary}</p> : null }
+        {/* { show ? <p className="movie-summary">{movie.summary}</p> : null } */}
       </CardContent>
 
       <Dlike />
@@ -72,9 +78,6 @@ function Movie({ movie, id }) {
 function Dlike(){
   const[like, setlike] = useState(0);
   const[dislike, setdislike] = useState(0);
-  useEffect(() => {
-    console.log("Like value is updated : ",dislike )
-  },[dislike, like])
   return(
     <div className="likdis">
       <CardActions>

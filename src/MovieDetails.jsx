@@ -1,11 +1,19 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export function MovieDetails({ movieList }) {
+export function MovieDetails() {
   const { san } = useParams();
-  const movie = movieList[san];
+
+  const [movie, setmovie] = useState({});
+  useEffect(() => {
+    fetch(`https://63d75fc05c4274b136f30708.mockapi.io/movies/${san}`)
+   .then((data) => data.json())
+   .then((movlis) => setmovie(movlis)); 
+  }, [])
+
+  // const movie = movieList[san];
   const styles = {
     color: movie.rating >= 8.5 ? "green" : "crimson"
   };

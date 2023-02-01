@@ -5,7 +5,7 @@ import { MovieList } from "./MovieList";
 import { TicTacToe } from "./TicTacToe";
 import { Photos } from "./Photos";
 import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
-import { useState,createContext, useContext } from "react";
+import { useState,createContext, useContext, useEffect } from "react";
 import { MovieDetails } from "./MovieDetails";
 import { Notapage } from "./Notapage";
 import { Home } from "./Home";
@@ -125,10 +125,9 @@ function App() {
           borderRadius : '0px',
           minHeight : "100vh"
   }
-  const [movieList, setmovieList] = useState(INITAL_MOVIE_LIST);
-  fetch("https://63d75fc05c4274b136f30708.mockapi.io/movies")
-    .then((data) => data.json())
-    .then((movlis) => console.log(movlis));
+  const [movieList, setmovieList] = useState([]);
+
+
 
 return (
   <ThemeProvider theme={darkTheme}>

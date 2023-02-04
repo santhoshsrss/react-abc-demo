@@ -11,7 +11,7 @@ export function MovieDetails() {
     fetch(`https://63d75fc05c4274b136f30708.mockapi.io/movies/${san}`)
    .then((data) => data.json())
    .then((movlis) => setmovie(movlis)); 
-  }, [])
+  }, [san])
 
   // const movie = movieList[san];
   const styles = {

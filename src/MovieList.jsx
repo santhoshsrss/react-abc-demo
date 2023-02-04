@@ -13,24 +13,43 @@ import InfoIcon from '@mui/icons-material/Info';
 import { Navigate, useNavigate } from "react-router-dom";
 export function MovieList() {
   const [movieList, setmovieList] = useState([]);
-  useEffect(() => {
-    fetch("https://63d75fc05c4274b136f30708.mockapi.io/movies")
-   .then((data) => data.json())
-   .then((movlis) => setmovieList(movlis)); 
-  }, [])
-
+  
+  const getmovie = () => 
+    {
+      fetch("https://63d75fc05c4274b136f30708.mockapi.io/movies")
+     .then((data) => data.json())
+     .then((movlis) => setmovieList(movlis)); 
+    };
+  
+  useEffect(() => getmovie() , [])
+    const deleteMovie = async(id) => {
+      await fetch(`https://63d75fc05c4274b136f30708.mockapi.io/movies/${id}`,{
+        method : "DELETE",
+      })
+      getmovie();
+      }
   return (
 
       <div className="movie-list">
-        
+
           {movieList.map((mv, index) => (
-            <Movie key ={mv.id}  movie={mv} id = {mv.id} />
+            <Movie 
+            key ={mv.id}  
+            movie={mv} 
+            id = {mv.id} 
+            deleteButton = {<IconButton 
+              sx = {{marginLeft: "auto"}}
+              color = "error"
+              onClick={() => deleteMovie(mv.id)}>
+              <DeleteIcon/>
+              </IconButton>}
+            />
           ))}
       
       </div>
   );
 }
-function Movie({ movie, id }) {
+function Movie({ movie, id, deleteButton }) {
   const styles = {
     color: movie.rating >= 8.5 ? "green" :"crimson"
   }
@@ -69,8 +88,12 @@ function Movie({ movie, id }) {
         {/* conditional rendering - Remove from DOM */}
         {/* { show ? <p className="movie-summary">{movie.summary}</p> : null } */}
       </CardContent>
-
-      <Dlike />
+      <CardActions> 
+        
+        <Dlike /> {deleteButton}
+      
+      </CardActions>
+     
     </Card>
   );
 }
